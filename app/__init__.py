@@ -1,21 +1,20 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
-
-db = SQLAlchemy()
-login_manager = LoginManager()
+from .routes import main
+from .extensions import db, migrate, login_manager
+from . import models 
+import os
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'twoj-sekretny-klucz'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bugtracker.db'
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, '..', 'bugtracker.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
+    migrate.init_app(app, db)
     login_manager.init_app(app)
 
-    with app.app_context():
-        from . import routes  # tutaj później dodasz widoki
-        db.create_all()
+    app.register_blueprint(main)
 
     return app
