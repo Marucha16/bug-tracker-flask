@@ -1,7 +1,53 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask_login import login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from app.forms import RegistrationForm, LoginForm
+from app.models import User
+from app.extensions import db
 
 main = Blueprint('main', __name__)
 
+@main.route('/register', methods=['GET', 'POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))  # jeśli ktoś już jest zalogowany, to nie powinien się rejestrować
+
+    form = RegistrationForm()
+    if form.validate_on_submit():  # jeśli formularz przesłany i poprawny
+        hashed_password = generate_password_hash(form.password.data)  # haszujemy hasło
+        user = User(username=form.username.data, email=form.email.data, password_hash=hashed_password)
+        db.session.add(user)       # dodajemy użytkownika do bazy
+        db.session.commit()
+        flash('Konto zostało utworzone. Możesz się teraz zalogować.', 'success')
+        return redirect(url_for('main.login'))  # przekierowanie do logowania
+
+    return render_template('register.html', form=form)
+
+@main.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))  # jeśli już zalogowany, to przekieruj
+
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and check_password_hash(user.password_hash, form.password.data):
+            login_user(user)
+            flash('Zalogowano pomyślnie!', 'success')
+            return redirect(url_for('main.index'))
+        else:
+            flash('Nieprawidłowa nazwa użytkownika lub hasło.', 'danger')
+
+    return render_template('login.html', form=form)
+
+@main.route('/logout', methods=['POST'])
+@login_required
+def logout():
+    logout_user()
+    flash('Wylogowano.', 'info')
+    return redirect(url_for('main.login'))
+
 @main.route('/')
 def index():
-    return "Działa! 🚀"
+    return render_template('index.html')
