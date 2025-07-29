@@ -2,8 +2,9 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app.forms import RegistrationForm, LoginForm
+from app.forms import RegistrationForm, LoginForm, BugForm
 from app.models import User
+from app.models import Bug
 from app.extensions import db
 
 main = Blueprint('main', __name__)
@@ -51,3 +52,18 @@ def logout():
 @main.route('/')
 def index():
     return render_template('index.html')
+
+@main.route('/report', methods=['GET', 'POST'])
+@login_required
+def report():
+    form = BugForm()
+    if form.validate_on_submit():
+        bug = Bug(
+            title=form.title.data,
+            description=form.description.data,
+            author=current_user)
+        db.session.add(bug)      
+        db.session.commit()
+        flash('Zgłoszenie zostało wysłane!!!.', 'success')
+        return redirect(url_for('main.index'))
+    return render_template('report_bug.html', form=form)
