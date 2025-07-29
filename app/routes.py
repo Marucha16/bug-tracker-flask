@@ -12,16 +12,16 @@ main = Blueprint('main', __name__)
 @main.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('main.index'))  # jeśli ktoś już jest zalogowany, to nie powinien się rejestrować
+        return redirect(url_for('main.index')) 
 
     form = RegistrationForm()
-    if form.validate_on_submit():  # jeśli formularz przesłany i poprawny
-        hashed_password = generate_password_hash(form.password.data)  # haszujemy hasło
+    if form.validate_on_submit():  
+        hashed_password = generate_password_hash(form.password.data)  
         user = User(username=form.username.data, email=form.email.data, password_hash=hashed_password)
-        db.session.add(user)       # dodajemy użytkownika do bazy
+        db.session.add(user)    
         db.session.commit()
         flash('Konto zostało utworzone. Możesz się teraz zalogować.', 'success')
-        return redirect(url_for('main.login'))  # przekierowanie do logowania
+        return redirect(url_for('main.login'))  
 
     return render_template('register.html', form=form)
 
