@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -47,7 +47,7 @@ def login():
 def logout():
     logout_user()
     flash('Wylogowano.', 'info')
-    return redirect(url_for('main.login'))
+    return redirect(url_for('main.index'))
 
 @main.route('/')
 def index():
@@ -67,3 +67,31 @@ def report():
         flash('Zgłoszenie zostało wysłane!!!.', 'success')
         return redirect(url_for('main.index'))
     return render_template('report_bug.html', form=form)
+@main.route('/admin_bugs')
+@login_required
+def admin_bugs():
+    if not current_user.is_admin:
+        abort(403)
+    bugs = Bug.query.all()
+    return render_template('reports.html', bugs=bugs)
+@main.route('/admin', methods=['POST'])
+@login_required
+def admin():
+    if not current_user.is_admin:
+        abort(403)
+    return redirect(url_for('main.admin_bugs'))
+@main.route('/delete_bug', methods=['POST'])
+def delete_bug():
+    bug_id = request.form.get('bug_id')
+    bug = Bug.query.get_or_404(bug_id)
+    db.session.delete(bug)
+    db.session.commit()
+    return redirect(url_for('main.admin_bugs'))
+@main.route('/zmien_status', methods=['POST'])
+def zmien_status():
+    bug_id = request.form.get('bug_id')
+    new_status = request.form.get('status')
+    bug = Bug.query.get_or_404(bug_id)
+    bug.status = new_status 
+    db.session.commit() 
+    return redirect(url_for('main.admin_bugs'))

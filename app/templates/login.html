@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Logowanie</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="formularz">
     <h1>Logowanie</h1>
     <form method="POST">
         {{ form.hidden_tag() }}
 
-        <p>
+        <p class="wpis">
             {{ form.username.label }}<br>
             {{ form.username(size=32) }}
         </p>
-        <p>
+        <p class="wpis">
             {{ form.password.label }}<br>
             {{ form.password(size=32) }}
         </p>
         <p>{{ form.submit() }}</p>
     </form>
     <p>Nie masz konta? <a href="{{ url_for('main.register') }}">Zarejestruj się</a></p>
+    </div>
 </body>
 </html>
