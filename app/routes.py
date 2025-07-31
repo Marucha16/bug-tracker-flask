@@ -28,7 +28,7 @@ def register():
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.index'))  # jeśli już zalogowany, to przekieruj
+        return redirect(url_for('main.index')) 
 
     form = LoginForm()
     if form.validate_on_submit():

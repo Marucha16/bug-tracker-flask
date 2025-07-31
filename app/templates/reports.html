@@ -18,9 +18,24 @@
         td {
             vertical-align: top;
         }
+        .back-button {
+            display: inline-block;
+            margin-bottom: 15px;
+            background-color: #6c757d; /* szary */
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
     </style>
 </head>
 <body>
+    <a href="{{ url_for('main.index') }}" class="back-button">← Powrót</a>
     <h1>Zgłoszone błędy</h1>
     <table>
         <thead>
@@ -52,19 +67,19 @@
                     {% endif %}
                 </td>
                 <td>
-                <form action="{{ url_for('main.delete_bug') }}" method="post" style="display:inline;">
-                    <input type="hidden" name="bug_id" value="{{ bug.id }}">
-                    <button type="submit" onclick="return confirm('Na pewno usunąć?')">Usuń</button>
-                </form>
-                <form action="{{ url_for('main.zmien_status') }}" method="post" style="display:inline;">
-                    <input type="hidden" name="bug_id" value="{{ bug.id }}">
-                    <select name="status">
-                        <option value="new" {% if bug.status == 'new' %}selected{% endif %}>New</option>
-                        <option value="open" {% if bug.status == 'open' %}selected{% endif %}>Open</option>
-                        <option value="end" {% if bug.status == 'end' %}selected{% endif %}>End</option>
-                    </select>
-                    <button type="submit">Zmień</button>
-                </form>
+                    <form action="{{ url_for('main.delete_bug') }}" method="post" style="display:inline;">
+                        <input type="hidden" name="bug_id" value="{{ bug.id }}">
+                        <button type="submit" onclick="return confirm('Na pewno usunąć?')">Usuń</button>
+                    </form>
+                    <form action="{{ url_for('main.zmien_status') }}" method="post" style="display:inline;">
+                        <input type="hidden" name="bug_id" value="{{ bug.id }}">
+                        <select name="status">
+                            <option value="new" {% if bug.status == 'new' %}selected{% endif %}>New</option>
+                            <option value="open" {% if bug.status == 'open' %}selected{% endif %}>Open</option>
+                            <option value="end" {% if bug.status == 'end' %}selected{% endif %}>End</option>
+                        </select>
+                        <button type="submit">Zmień</button>
+                    </form>
                 </td>
             </tr>
             {% endfor %}

@@ -55,6 +55,21 @@
         form.logout button:hover {
             background-color: #a71d2a;
         }
+       .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* odstęp między wierszami */
+}
+
+.button-group .row {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* większy odstęp między przyciskami w wierszu */
+}
+
+.button-group form {
+    margin: 0;
+}
     </style>
 </head>
 <body>
@@ -62,15 +77,21 @@
         <h1>Witaj na stronie głównej!</h1>
         {% if current_user.is_authenticated %}
             <p>Zalogowany jako <strong>{{ current_user.username }}</strong></p>
-            <form action="{{ url_for('main.report') }}" method="post">
-                <button type="submit">Zgłoś błąd</button>
-            </form>
-            <form action="{{ url_for('main.logout') }}" method="post" class="logout">
-                <button type="submit">Wyloguj</button>
-            </form>
-            <form action="{{ url_for('main.admin') }}" method="post" class="logout">
-                <button type="submit">Zobacz zgłoszenia</button>
-            </form>
+            <div class="button-group">
+                <div class="row">
+                    <form action="{{ url_for('main.report') }}" method="post">
+                        <button type="submit">Zgłoś błąd</button>
+                    </form>
+                    <form action="{{ url_for('main.logout') }}" method="post" class="logout">
+                        <button type="submit">Wyloguj</button>
+                    </form>
+                </div>
+            <div class="row">
+                <form action="{{ url_for('main.admin') }}" method="post">
+                    <button type="submit">Zobacz zgłoszenia</button>
+                </form>
+            </div>
+            </div>
         {% else %}
             <p>Nie jesteś zalogowany.</p>
             <form action="{{ url_for('main.login') }}" method="post">
