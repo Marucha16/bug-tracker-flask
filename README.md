@@ -14,7 +14,7 @@
 - ├── run.py # Plik startowy aplikacji
 - └── requirements.txt # Lista zależności Pythona
 ## ⚙️ Instalacja i uruchomienie
-```bash
+ ```` ```bash ````  
 # 1️⃣ Sklonuj repozytorium
 git clone https://github.com/twoj-login/bug-tracker-flask.git
 
@@ -31,5 +31,5 @@ pip install -r requirements.txt
 
 # 5️⃣ Uruchom aplikację
 python run.py
-\`\`\`
+```` ``` ````  
 ## 🛠 Technologie
