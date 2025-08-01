@@ -31,4 +31,5 @@ pip install -r requirements.txt
 
 # 5️⃣ Uruchom aplikację
 python run.py
+\`\`\`
 ## 🛠 Technologie
