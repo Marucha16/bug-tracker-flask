@@ -1,6 +1,6 @@
 #🐞bug-tracker-flask
 ##Struktura projektu
-bug-tracker-flask/
+-bug-tracker-flask/
 │
 ├── app/
 │ ├── init.py # Inicjalizacja aplikacji Flask
