@@ -33,3 +33,24 @@ pip install -r requirements.txt
 python run.py
 ```
 ## 🛠 Technologie
+Projekt korzysta z następujących technologii i bibliotek:
+
+- **Python** — główny język programowania  
+- **Flask** — lekki framework webowy  
+- **Flask-Login** — zarządzanie sesjami i logowaniem użytkowników  
+- **Flask-Migrate** — migracje bazy danych (oparte na Alembic)  
+- **Flask-SQLAlchemy** — ORM do pracy z bazą danych  
+- **Flask-WTF** — obsługa formularzy i walidacja (WTForms)  
+- **Alembic** — narzędzie do migracji baz danych  
+- **SQLAlchemy** — biblioteka ORM dla Pythona  
+- **WTForms** — biblioteka do tworzenia i walidacji formularzy  
+- **Jinja2** — silnik szablonów HTML  
+- **Werkzeug** — biblioteka WSGI wykorzystywana przez Flask  
+- **Mako** — alternatywny silnik szablonów (może być wykorzystywany)  
+- **email_validator** — walidacja adresów email  
+- **dnspython**, **idna** — obsługa DNS i IDN, wspierające inne pakiety  
+- **click** — narzędzie do tworzenia interfejsów CLI (wykorzystywane przez Flask)  
+- **blinker** — system sygnałów i zdarzeń  
+- **itsdangerous** — bezpieczne podpisywanie danych (np. do sesji)  
+- **greenlet** — wykorzystywany przez SQLAlchemy do współbieżności  
+- **typing_extensions** — rozszerzenia typów dla Pythona
