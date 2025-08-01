@@ -1,20 +1,20 @@
-#🐞bug-tracker-flask
-##Struktura projektu
--bug-tracker-flask/
-│
-├── app/
-│ ├── init.py # Inicjalizacja aplikacji Flask
-│ ├── extensions.py # Inicjalizacja rozszerzeń (SQLAlchemy)
-│ ├── forms.py # Formularze WTForms
-│ ├── models.py # Modele SQLAlchemy
-│ ├── routes.py # Trasy (flask)
-│ ├── static/ # Pliki statyczne (CSS)
-│ └── templates/ # Szablony HTML 
-│
-├── run.py # Plik startowy aplikacji
-└── requirements.txt # Lista zależności Pythona
+# 🐞bug-tracker-flask
+## Struktura projektu
+- bug-tracker-flask/
+- │
+- ├── app/
+- │ ├── init.py # Inicjalizacja aplikacji Flask
+- │ ├── extensions.py # Inicjalizacja rozszerzeń (SQLAlchemy)
+- │ ├── forms.py # Formularze WTForms
+- │ ├── models.py # Modele SQLAlchemy
+- │ ├── routes.py # Trasy (flask)
+- │ ├── static/ # Pliki statyczne (CSS)
+- │ └── templates/ # Szablony HTML 
+- │
+- ├── run.py # Plik startowy aplikacji
+- └── requirements.txt # Lista zależności Pythona
 ## ⚙️ Instalacja i uruchomienie
-```bash
+ ```bash   
 # 1️⃣ Sklonuj repozytorium
 git clone https://github.com/twoj-login/bug-tracker-flask.git
 
@@ -31,3 +31,5 @@ pip install -r requirements.txt
 
 # 5️⃣ Uruchom aplikację
 python run.py
+```
+## 🛠 Technologie
