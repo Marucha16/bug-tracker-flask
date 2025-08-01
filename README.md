@@ -1,4 +1,5 @@
-# 🐞bug-tracker-flask
+# 🐞bug-tracker-flask (w trakcie)
+- Aplikacja webowa do zarządzania zgłoszeniami błędów i zadaniami projektowymi, stworzona w Pythonie z wykorzystaniem Flask.
 ## Struktura projektu
 - bug-tracker-flask/
 - │
