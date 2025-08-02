@@ -1,4 +1,4 @@
-# 🐞bug-tracker-flask (w trakcie)
+# 🐞bug-tracker-flask
 - A web application for managing bug reports and editing their detailed data. Created in Python using the Flask framework. It allows easy tracking and updating of bug statuses within a project.
 ## Project Structure
 - bug-tracker-flask/
