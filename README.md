@@ -1,76 +1,76 @@
 # 🐞bug-tracker-flask (w trakcie)
-- Aplikacja webowa do zarządzania zgłoszeniami błędów oraz edycji ich szczegółowych danych. Została stworzona w Pythonie przy użyciu frameworka Flask. Umożliwia łatwe śledzenie i aktualizowanie statusów błędów w projekcie.
-## Struktura projektu
+- A web application for managing bug reports and editing their detailed data. Created in Python using the Flask framework. It allows easy tracking and updating of bug statuses within a project.
+## Project Structure
 - bug-tracker-flask/
 - │
 - ├── app/
-- │ ├── init.py # Inicjalizacja aplikacji Flask
-- │ ├── extensions.py # Inicjalizacja rozszerzeń (SQLAlchemy)
-- │ ├── forms.py # Formularze WTForms
-- │ ├── models.py # Modele SQLAlchemy
-- │ ├── routes.py # Trasy (flask)
-- │ ├── static/ # Pliki statyczne (CSS)
-- │ └── templates/ # Szablony HTML 
+- │ ├── init.py # Flask app initialization
+- │ ├── extensions.py # Extensions initialization (SQLAlchemy)
+- │ ├── forms.py # WTForms forms
+- │ ├── models.py # SQLAlchemy models
+- │ ├── routes.py # Flask routes
+- │ ├── static/ # Static files (CSS)
+- │ └── templates/ # HTML templates
 - │
-- ├── run.py # Plik startowy aplikacji
-- └── requirements.txt # Lista zależności Pythona
-## ⚙️ Instalacja i uruchomienie
+- ├── run.py # Application entry point
+- └── requirements.txt # Python dependencies list
+## ⚙️ Installation and running
  ```bash   
-# 1️⃣ Sklonuj repozytorium
+# 1️⃣ Clone the repository
 git clone https://github.com/twoj-login/bug-tracker-flask.git
 
-# 2️⃣ Wejdź do katalogu projektu
+# 2️⃣ Enter the project directory
 cd bug-tracker-flask
 
-# 3️⃣ Utwórz i aktywuj wirtualne środowisko
+# 3️⃣ Create and activate virtual environment
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
 
-# 4️⃣ Zainstaluj wymagane paczki
+# 4️⃣ Install required packages
 pip install -r requirements.txt
 
-# 5️⃣ Uruchom aplikację
+# 5️⃣ Run the application
 python run.py
 ```
-## 🛠 Technologie
-Projekt korzysta z następujących technologii i bibliotek:
+## 🛠 Technologies
+The project uses the following technologies and libraries:
 
-- **Python** — główny język programowania  
-- **Flask** — lekki framework webowy  
-- **Flask-Login** — zarządzanie sesjami i logowaniem użytkowników  
-- **Flask-Migrate** — migracje bazy danych (oparte na Alembic)  
-- **Flask-SQLAlchemy** — ORM do pracy z bazą danych  
-- **Flask-WTF** — obsługa formularzy i walidacja (WTForms)  
-- **Alembic** — narzędzie do migracji baz danych  
-- **SQLAlchemy** — biblioteka ORM dla Pythona  
-- **WTForms** — biblioteka do tworzenia i walidacji formularzy  
-- **Jinja2** — silnik szablonów HTML  
-- **Werkzeug** — biblioteka WSGI wykorzystywana przez Flask  
-- **Mako** — alternatywny silnik szablonów (może być wykorzystywany)  
-- **email_validator** — walidacja adresów email  
-- **dnspython**, **idna** — obsługa DNS i IDN, wspierające inne pakiety  
-- **click** — narzędzie do tworzenia interfejsów CLI (wykorzystywane przez Flask)  
-- **blinker** — system sygnałów i zdarzeń  
-- **itsdangerous** — bezpieczne podpisywanie danych (np. do sesji)  
-- **greenlet** — wykorzystywany przez SQLAlchemy do współbieżności  
-- **typing_extensions** — rozszerzenia typów dla Pythona
-## 📸 Zrzuty ekranu
+- **Python** — main programming language
+- **Flask** — lightweight web framework
+- **Flask-Login** — user session and login management
+- **Flask-Migrate** — database migrations (based on Alembic) 
+- **Flask-SQLAlchemy** — ORM for database interactions
+- **Flask-WTF** — form handling and validation (WTForms)
+- **Alembic** — database migration tool
+- **SQLAlchemy** — Python ORM library
+- **WTForms** — library for creating and validating forms
+- **Jinja2** — HTML template engine
+- **Werkzeug** — WSGI library used by Flask
+- **Mako** — alternative template engine (optional)
+- **email_validator** — email address validation
+- **dnspython**, **idna** — DNS and IDN support, used by other packages
+- **click** — CLI tool used by Flask
+- **blinker** — signaling/event system
+- **itsdangerous** — secure data signing (e.g., for sessions)
+- **greenlet** — used by SQLAlchemy for concurrency
+- **typing_extensions** — Python typing extensions
+## 📸 Screenshots
 
-### Główna strona - bez zalogowania
+### Main page - not log in
 ![Ekran główny](screenshots/ekran_brzlogowania.png)
 
-### Rejestracja
+### Registration
 ![Ekran rejestracji](screenshots/rejestracja.png)
 
-### Logowanie
+### Login
 ![Ekran logowania](screenshots/logowanie.png)
 
-### Główna strona - zalogowany
+### Main page - logged in
 ![Ekran główny](screenshots/ekran_glowny.png)
 
-### Formularz zgłoszeniowy
+### Report submission form
 ![Ekran zgłaszania](screenshots/zglaszanie.png)
 
-### Strona ze zgłoszeniami
+### Reports page
 ![Ekran zgłaszania](screenshots/reports.png)
