@@ -4,24 +4,107 @@
     <meta charset="UTF-8">
     <title>Zgłoszone błędy – Panel admina</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        /* Kontener filtrów */
+        .filters {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filters input, .filters select {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
+
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
         }
+
         th {
             background-color: #f2f2f2;
+            text-align: left;
         }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
         td {
             vertical-align: top;
+            word-wrap: break-word;
+            white-space: normal;
         }
+
+        td:nth-child(3) { /* kolumna Opis */
+            max-width: 400px;
+        }
+
+        /* Styl przycisków */
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #b02a37;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+        }
+
+        /* Link powrotu */
         .back-button {
             display: inline-block;
             margin-bottom: 15px;
-            background-color: #6c757d; /* szary */
+            background-color: #6c757d;
             color: white;
             padding: 8px 16px;
             border-radius: 6px;
@@ -29,14 +112,47 @@
             font-weight: bold;
             transition: background-color 0.3s ease;
         }
+
         .back-button:hover {
             background-color: #5a6268;
+        }
+
+        /* Pokaż więcej/mniej */
+        .more-text {
+            display: none;
+        }
+
+        .show-btn {
+            color: #007bff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 0;
+            margin-top: 4px;
+        }
+
+        .show-btn:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <a href="{{ url_for('main.index') }}" class="back-button">← Powrót</a>
     <h1>Zgłoszone błędy</h1>
+
+    <!-- Filtry -->
+    <div class="filters">
+        <input type="text" id="filterTitle" placeholder="Szukaj po tytule..." onkeyup="filterTable()">
+        <select id="filterStatus" onchange="filterTable()">
+            <option value="">Wszystkie statusy</option>
+            <option value="new">New</option>
+            <option value="open">Open</option>
+            <option value="end">End</option>
+        </select>
+        <input type="text" id="filterAuthor" placeholder="Szukaj po autorze..." onkeyup="filterTable()">
+    </div>
+
     <table>
         <thead>
             <tr>
@@ -55,7 +171,14 @@
             <tr>
                 <td>{{ bug.id }}</td>
                 <td>{{ bug.title }}</td>
-                <td>{{ bug.description }}</td>
+                <td>
+                    {% set short_desc = bug.description[:100] %}
+                    {{ short_desc }}
+                    {% if bug.description|length > 100 %}
+                        <span class="more-text">{{ bug.description[100:] }}</span>
+                        <button type="button" class="show-btn" onclick="toggleMore(this)">Pokaż więcej</button>
+                    {% endif %}
+                </td>
                 <td>{{ bug.status }}</td>
                 <td>{{ bug.author.username }}</td>
                 <td>{{ bug.data_created.strftime('%Y-%m-%d %H:%M') }}</td>
@@ -69,7 +192,7 @@
                 <td>
                     <form action="{{ url_for('main.delete_bug') }}" method="post" style="display:inline;">
                         <input type="hidden" name="bug_id" value="{{ bug.id }}">
-                        <button type="submit" onclick="return confirm('Na pewno usunąć?')">Usuń</button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Na pewno usunąć?')">Usuń</button>
                     </form>
                     <form action="{{ url_for('main.zmien_status') }}" method="post" style="display:inline;">
                         <input type="hidden" name="bug_id" value="{{ bug.id }}">
@@ -78,12 +201,47 @@
                             <option value="open" {% if bug.status == 'open' %}selected{% endif %}>Open</option>
                             <option value="end" {% if bug.status == 'end' %}selected{% endif %}>End</option>
                         </select>
-                        <button type="submit">Zmień</button>
+                        <button type="submit" class="btn btn-primary">Zmień</button>
                     </form>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <script>
+        function toggleMore(button) {
+            const moreText = button.previousElementSibling;
+            if (moreText.style.display === "inline") {
+                moreText.style.display = "none";
+                button.textContent = "Pokaż więcej";
+            } else {
+                moreText.style.display = "inline";
+                button.textContent = "Pokaż mniej";
+            }
+        }
+
+        function filterTable() {
+            let titleInput = document.getElementById("filterTitle").value.toLowerCase();
+            let statusInput = document.getElementById("filterStatus").value.toLowerCase();
+            let authorInput = document.getElementById("filterAuthor").value.toLowerCase();
+
+            let rows = document.querySelectorAll("tbody tr");
+
+            rows.forEach(row => {
+                let title = row.cells[1].textContent.toLowerCase();
+                let status = row.cells[3].textContent.toLowerCase();
+                let author = row.cells[4].textContent.toLowerCase();
+
+                let match = true;
+
+                if (titleInput && !title.includes(titleInput)) match = false;
+                if (statusInput && status !== statusInput) match = false;
+                if (authorInput && !author.includes(authorInput)) match = false;
+
+                row.style.display = match ? "" : "none";
+            });
+        }
+    </script>
 </body>
 </html>
