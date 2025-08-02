@@ -55,3 +55,22 @@ Projekt korzysta z następujących technologii i bibliotek:
 - **itsdangerous** — bezpieczne podpisywanie danych (np. do sesji)  
 - **greenlet** — wykorzystywany przez SQLAlchemy do współbieżności  
 - **typing_extensions** — rozszerzenia typów dla Pythona
+## 📸 Zrzuty ekranu
+
+### Główna strona - bez zalogowania
+![Ekran główny](screenshots/ekran_brzlogowania.png)
+
+### Rejestracja
+![Ekran rejestracji](screenshots/rejestracja.png)
+
+### Logowanie
+![Ekran logowania](screenshots/logowanie.png)
+
+### Główna strona - zalogowany
+![Ekran główny](screenshots/ekran_glowny.png)
+
+### Formularz zgłoszeniowy
+![Ekran zgłaszania](screenshots/zglaszanie.png)
+
+### Strona ze zgłoszeniami
+![Ekran zgłaszania](screenshots/reports.png)
