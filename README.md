@@ -47,14 +47,6 @@ The project uses the following technologies and libraries:
 - **WTForms** — library for creating and validating forms
 - **Jinja2** — HTML template engine
 - **Werkzeug** — WSGI library used by Flask
-- **Mako** — alternative template engine (optional)
-- **email_validator** — email address validation
-- **dnspython**, **idna** — DNS and IDN support, used by other packages
-- **click** — CLI tool used by Flask
-- **blinker** — signaling/event system
-- **itsdangerous** — secure data signing (e.g., for sessions)
-- **greenlet** — used by SQLAlchemy for concurrency
-- **typing_extensions** — Python typing extensions
 ## 📸 Screenshots
 
 ### Main page - not log in
