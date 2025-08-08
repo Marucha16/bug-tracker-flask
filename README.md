@@ -30,7 +30,10 @@ venv\Scripts\activate     # Windows
 # 4️⃣ Install required packages
 pip install -r requirements.txt
 
-# 5️⃣ Run the application
+# 5️⃣ Run the database migrations to create the database schema(add account)
+flask db upgrade
+
+# 6️⃣  Run the application
 python run.py
 ```
 ## 🛠 Technologies
